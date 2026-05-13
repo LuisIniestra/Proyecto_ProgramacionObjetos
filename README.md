@@ -1,1 +1,3 @@
-# Proyecto_ProgramacionObjetos
+Muchos estudiantes que comienzan a estudiar estadística suelen tener dificultades para comprender cómo funcionan las probabilidades en situaciones reales, especialmente en juegos de cartas. En clase se explican conceptos como combinaciones, eventos independientes y resultados posibles, pero normalmente todo se queda en teoría y no existe una herramienta práctica que permita experimentar con estos conceptos de manera directa.
+
+Este programa busca cubrir esa necesidad. La simulación de Blackjack permite observar cómo cambian las probabilidades conforme el jugador decide pedir una carta, quedarse o analizar el comportamiento del crupier. Aunque no pretende ser una reproducción profesional del juego, sí ofrece un espacio sencillo donde se pueden visualizar resultados aleatorios y entender mejor cómo las decisiones afectan el desarrollo de la partida.
