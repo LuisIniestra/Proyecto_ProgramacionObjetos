@@ -1,9 +1,3 @@
-/*
- * Proyecto Hotel clase Hotel
- *
- * Esta clase administra las habitaciones del hotel.
- */
-
 #ifndef HOTEL_H_
 #define HOTEL_H_
 
