@@ -17,3 +17,17 @@ Las habitaciones consideradas son:
 - Suite
 
 Cada una tendrá atributos y cálculos propios, pero todas partirán de una clase general llamada `Habitacion`.
+
+## Casos que podrían afectar el funcionamiento
+
+El proyecto podría fallar o generar resultados incorrectos si no se validan algunos datos importantes.
+
+Los casos principales son:
+
+- Registrar una habitación con número inválido, como cero o negativo.
+- Ingresar cero noches o una cantidad negativa de noches.
+- Ingresar un precio por noche igual a cero o negativo.
+- Ingresar cargos extra o servicios extra negativos.
+- Ingresar texto cuando el programa espera un número.
+
+Estos casos se deben validar para evitar errores en los cálculos y en la ejecución del programa.
