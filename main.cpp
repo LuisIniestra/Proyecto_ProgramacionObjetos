@@ -1,7 +1,5 @@
 #include <iostream>
-
-#include "habitacion.h"
-#include "hotel.h"
+#include "Hotel.h"
 
 using namespace std;
 
