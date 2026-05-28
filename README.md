@@ -31,3 +31,21 @@ Los casos principales son:
 - Ingresar texto cuando el programa espera un número.
 
 Estos casos se deben validar para evitar errores en los cálculos y en la ejecución del programa.
+
+## Consideraciones
+
+El programa corre en consola y está hecho con C++ estándar, por lo que puede correr en diferentes sistemas operativos.
+
+Para compilar el proyecto, primero se debe abrir una terminal dentro de la carpeta donde están los archivos del programa.
+
+Compilar con:
+
+g++ main.cpp Habitacion.cpp Individual.cpp Doble.cpp Suite.cpp Hotel.cpp -o hotel
+
+Correr en Windows:
+
+.\hotel.exe
+
+Correr en Linux o Mac:
+
+./hotel
