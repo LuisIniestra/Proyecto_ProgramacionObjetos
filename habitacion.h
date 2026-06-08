@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Habitacion {
+class Habitacion {   // Clase padre del proyecto, tambien es la clase abstracta porque tiene métodos virtuales iguales a cero.
 
   protected:
     int numero;
