@@ -52,11 +52,11 @@ void Hotel::muestra_habitaciones() { // Metodo para mostrar todas las habitacion
     
 }
 
-void Hotel::muestra_habitaciones(string tipo) { // Método sobrecargado. Tiene el mismo nombre que muestra_habitaciones(), pero recibe un string
+void Hotel::muestra_habitaciones(string tipo) { // Metodo sobrecargado. Tiene el mismo nombre que muestra_habitaciones(), pero recibe un string
 
   for (int i = 0; i < num_habitaciones; i++) { // Recorre todas las habitaciones registradas
 
-    if (habitaciones[i]->get_tipo() == tipo) { // Compara el tipo de la habitación con el tipo recibido
+    if (habitaciones[i]->get_tipo() == tipo) { // Compara el tipo de la habitacion con el tipo recibido
 
       cout << habitaciones[i]->to_string();
       // Imprime solo las habitaciones que coinciden con el tipo.Tambien se aplica polimorfismo por el uso de to_string()
@@ -163,4 +163,5 @@ void Hotel::agrega_suite(int numero, int noches, double precio, double servicio,
     num_habitaciones++;
 
   }
+}
 }
