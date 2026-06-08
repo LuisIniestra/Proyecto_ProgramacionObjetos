@@ -1,10 +1,9 @@
-#include "Doble.h"
+#include "doble.h"
 #include <sstream>
 
 using namespace std;
 
-Doble::Doble(): Habitacion() {
-  tipo = "doble";
+Doble::Doble(): Habitacion(0, 0, 0, "doble") {
   cargo_extra = 0;
 }
 
@@ -18,11 +17,11 @@ Doble::Doble(int num, int noch, double precio, double cargo):
   cargo_extra = cargo;
 }
 
-double Doble::costo_total() {
+double Doble::costo_total() const {
   return (precio_noche * noches) + cargo_extra;
 }
 
-string Doble::to_string() {
+string Doble::to_string() const {
   stringstream aux;
 
   aux << "Habitacion " << numero
