@@ -2,10 +2,10 @@
 #define HOTEL_H_
 
 #include <string>
-#include "Habitacion.h"
-#include "Individual.h"
-#include "Doble.h"
-#include "Suite.h"
+#include "habitacion.h"
+#include "individual.h"
+#include "doble.h"
+#include "suite.h"
 
 using namespace std;
 
@@ -16,6 +16,8 @@ class Hotel {
   private:
     Habitacion *habitaciones[MAX_HABITACIONES];
     int num_habitaciones;
+
+    bool datos_validos(int numero, int noches, double precio);
 
   public:
     Hotel();
@@ -37,7 +39,6 @@ class Hotel {
 
     void agrega_suite(int numero, int noches, double precio, double servicio);
     void agrega_suite(int numero, int noches, double precio, double servicio, double descuento);
-
 };
 
 #endif
