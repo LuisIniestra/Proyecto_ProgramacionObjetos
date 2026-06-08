@@ -1,10 +1,9 @@
-#include "Suite.h"
+#include "suite.h"
 #include <sstream>
 
 using namespace std;
 
-Suite::Suite(): Habitacion() {
-  tipo = "suite";
+Suite::Suite(): Habitacion(0, 0, 0, "suite") {
   servicio_extra = 0;
   descuento = 0;
 }
@@ -21,11 +20,11 @@ Suite::Suite(int num, int noch, double precio, double servicio, double desc):
   descuento = desc;
 }
 
-double Suite::costo_total() {
+double Suite::costo_total() const {
   return (precio_noche * noches) + servicio_extra - descuento;
 }
 
-string Suite::to_string() {
+string Suite::to_string() const {
   stringstream aux;
 
   aux << "Habitacion " << numero
