@@ -1,10 +1,9 @@
-#include "Individual.h"
+#include "individual.h"
 #include <sstream>
 
 using namespace std;
 
-Individual::Individual(): Habitacion() {
-  tipo = "individual";
+Individual::Individual(): Habitacion(0, 0, 0, "individual") {
   desayuno_incluido = false;
 }
 
@@ -18,11 +17,11 @@ Individual::Individual(int num, int noch, double precio, bool desayuno):
   desayuno_incluido = desayuno;
 }
 
-double Individual::costo_total() {
+double Individual::costo_total() const {
   return precio_noche * noches;
 }
 
-string Individual::to_string() {
+string Individual::to_string() const {
   stringstream aux;
 
   aux << "Habitacion " << numero
