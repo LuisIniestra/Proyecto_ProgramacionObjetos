@@ -1,4 +1,4 @@
-#include "Hotel.h"
+#include "hotel.h"
 #include <iostream>
 
 using namespace std;
@@ -17,6 +17,10 @@ Hotel::~Hotel() {
   }
 }
 
+bool Hotel::datos_validos(int numero, int noches, double precio) {
+  return numero > 0 && noches > 0 && precio > 0;
+}
+
 void Hotel::crea_ejemplos() {
   agrega_individual(101, 2, 850, true);
   agrega_individual(102, 1, 750);
@@ -30,14 +34,14 @@ void Hotel::crea_ejemplos() {
 
 void Hotel::muestra_habitaciones() {
   for (int i = 0; i < num_habitaciones; i++) {
-    cout << habitaciones[i]->to_string();
+    cout << *habitaciones[i];
   }
 }
 
 void Hotel::muestra_habitaciones(string tipo) {
   for (int i = 0; i < num_habitaciones; i++) {
     if (habitaciones[i]->get_tipo() == tipo) {
-      cout << habitaciones[i]->to_string();
+      cout << *habitaciones[i];
     }
   }
 }
@@ -65,42 +69,49 @@ double Hotel::calc_ingreso_total(string tipo) {
 }
 
 void Hotel::agrega_individual(int numero, int noches, double precio) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
     habitaciones[num_habitaciones] = new Individual(numero, noches, precio);
     num_habitaciones++;
   }
 }
 
 void Hotel::agrega_individual(int numero, int noches, double precio, bool desayuno) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
     habitaciones[num_habitaciones] = new Individual(numero, noches, precio, desayuno);
     num_habitaciones++;
   }
 }
 
 void Hotel::agrega_doble(int numero, int noches, double precio) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
     habitaciones[num_habitaciones] = new Doble(numero, noches, precio);
     num_habitaciones++;
   }
 }
 
 void Hotel::agrega_doble(int numero, int noches, double precio, double cargo) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio) && cargo >= 0) {
     habitaciones[num_habitaciones] = new Doble(numero, noches, precio, cargo);
     num_habitaciones++;
   }
 }
 
 void Hotel::agrega_suite(int numero, int noches, double precio, double servicio) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio) && servicio >= 0) {
     habitaciones[num_habitaciones] = new Suite(numero, noches, precio, servicio);
     num_habitaciones++;
   }
 }
 
 void Hotel::agrega_suite(int numero, int noches, double precio, double servicio, double descuento) {
-  if (num_habitaciones < MAX_HABITACIONES) {
+  double subtotal = (precio * noches) + servicio;
+
+  if (num_habitaciones < MAX_HABITACIONES &&
+      datos_validos(numero, noches, precio) &&
+      servicio >= 0 &&
+      descuento >= 0 &&
+      descuento <= subtotal) {
+
     habitaciones[num_habitaciones] = new Suite(numero, noches, precio, servicio, descuento);
     num_habitaciones++;
   }
