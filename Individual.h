@@ -6,18 +6,25 @@
 
 using namespace std;
 
-class Individual: public Habitacion {
+class Individual: public Habitacion { // La clase Individual hereda de Habitacion.
 
   private:
-    bool desayuno_incluido;
+    bool desayuno_incluido; // Atributo propio de la habitación individual.
 
   public:
-    Individual();
-    Individual(int num, int noch, double precio);
-    Individual(int num, int noch, double precio, bool desayuno);
+    Individual(); // Constructor.
 
+    Individual(int num, int noch, double precio); // Constructor con parametros.
+
+    Individual(int num, int noch, double precio, bool desayuno);
+    // Constructor sobrecargado. Recibe los mismos datos anteriores, pero también si incluye desayuno. (overloading)
+   
     double costo_total() const override;
+    // Sobreescritura del método costo_total(). Este método venía como virtual en Habitacion.
+
     string to_string() const override;
+    // Sobreescritura del método to_string().
+
 };
 
 #endif
