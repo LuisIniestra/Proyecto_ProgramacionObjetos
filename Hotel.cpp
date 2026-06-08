@@ -5,7 +5,6 @@ using namespace std;
 
 Hotel::Hotel() {
   // Constructor de Hotel.
-  // Se ejecuta cuando en main.cpp hacemos: Hotel hotel;
 
   num_habitaciones = 0;
   // Inicializa el contador en cero porque al crear el hotel todavía no hay habitaciones registradas.
@@ -14,8 +13,7 @@ Hotel::Hotel() {
     // Recorre todo el arreglo de apuntadores.
 
     habitaciones[i] = 0;
-    // Inicializa cada posición en 0.
-    // Esto evita que los apuntadores tengan basura de memoria.
+    // Inicializa cada posición en 0 Esto evita que los apuntadores tengan basura de memoria.
   }
 }
 
@@ -156,10 +154,9 @@ void Hotel::agrega_individual(int numero, int noches, double precio) {
     habitaciones[num_habitaciones] = new Individual(numero, noches, precio);
     // Crea un objeto Individual en memoria dinámica usando new.
     // Aunque el objeto real es Individual, se guarda como Habitacion*.
-    // Aquí se aplica polimorfismo.
+
 
     num_habitaciones++;
-    // Aumenta el contador porque ya se agregó una habitación.
   }
 }
 
@@ -174,7 +171,6 @@ void Hotel::agrega_individual(int numero, int noches, double precio, bool desayu
     // Crea un objeto Individual usando el constructor que recibe desayuno.
 
     num_habitaciones++;
-    // Aumenta el contador de habitaciones.
   }
 }
 
@@ -189,7 +185,6 @@ void Hotel::agrega_doble(int numero, int noches, double precio) {
     // Se guarda como Habitacion*, aplicando polimorfismo.
 
     num_habitaciones++;
-    // Aumenta el contador.
   }
 }
 
@@ -205,7 +200,6 @@ void Hotel::agrega_doble(int numero, int noches, double precio, double cargo) {
     // Crea un objeto Doble con cargo extra.
 
     num_habitaciones++;
-    // Aumenta el contador.
   }
 }
 
