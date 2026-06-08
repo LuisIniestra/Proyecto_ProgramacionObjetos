@@ -1,7 +1,7 @@
 #ifndef SUITE_H_
 #define SUITE_H_
 
-#include "Habitacion.h"
+#include "habitacion.h"
 #include <string>
 
 using namespace std;
@@ -17,9 +17,8 @@ class Suite: public Habitacion {
     Suite(int num, int noch, double precio, double servicio);
     Suite(int num, int noch, double precio, double servicio, double desc);
 
-    double costo_total();
-    string to_string();
-
+    double costo_total() const override;
+    string to_string() const override;
 };
 
 #endif
