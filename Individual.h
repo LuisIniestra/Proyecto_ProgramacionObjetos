@@ -1,7 +1,7 @@
 #ifndef INDIVIDUAL_H_
 #define INDIVIDUAL_H_
 
-#include "Habitacion.h"
+#include "habitacion.h"
 #include <string>
 
 using namespace std;
@@ -16,9 +16,8 @@ class Individual: public Habitacion {
     Individual(int num, int noch, double precio);
     Individual(int num, int noch, double precio, bool desayuno);
 
-    double costo_total();
-    string to_string();
-
+    double costo_total() const override;
+    string to_string() const override;
 };
 
 #endif
