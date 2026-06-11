@@ -1,36 +1,23 @@
-#ifndef HABITACION_H_
-#define HABITACION_H_
+#ifndef INDIVIDUAL_H_
+#define INDIVIDUAL_H_
 
+#include "habitacion.h"
 #include <string>
 
 using namespace std;
 
-class Habitacion {
+class Individual: public Habitacion {
 
-  protected:
-    int numero;
-    int noches;
-    double precio_noche;
-    string tipo;
-    bool disponible;
+  private:
+    bool desayuno_incluido;
 
   public:
-    Habitacion();
-    Habitacion(int num, double precio, string tip);
+    Individual();
+    Individual(int num, double precio);
+    Individual(int num, double precio, bool desayuno);
 
-    virtual ~Habitacion();
-
-    int get_numero() const;
-    int get_noches() const;
-    double get_precio_noche() const;
-    string get_tipo() const;
-    bool get_disponible() const;
-
-    void reservar(int noch);
-    void liberar();
-
-    virtual double costo_total() const = 0;
-    virtual string to_string() const = 0;
+    double costo_total() const override;
+    string to_string() const override;
 };
 
 #endif
