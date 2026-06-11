@@ -1,52 +1,45 @@
-#include "habitacion.h"
+#include "individual.h"
+#include <sstream>
 
 using namespace std;
 
-Habitacion::Habitacion() {
-  numero = 0;
-  noches = 0;
-  precio_noche = 0;
-  tipo = "habitacion";
-  disponible = true;
+Individual::Individual(): Habitacion(0, 0, "individual") {
+  desayuno_incluido = false;
 }
 
-Habitacion::Habitacion(int num, double precio, string tip) {
-  numero = num;
-  noches = 0;
-  precio_noche = precio;
-  tipo = tip;
-  disponible = true;
+Individual::Individual(int num, double precio):
+  Habitacion(num, precio, "individual") {
+  desayuno_incluido = false;
 }
 
-Habitacion::~Habitacion() {
+Individual::Individual(int num, double precio, bool desayuno):
+  Habitacion(num, precio, "individual") {
+  desayuno_incluido = desayuno;
 }
 
-int Habitacion::get_numero() const {
-  return numero;
+double Individual::costo_total() const {
+  if (disponible) {
+    return 0;
+  }
+
+  return precio_noche * noches;
 }
 
-int Habitacion::get_noches() const {
-  return noches;
-}
+string Individual::to_string() const {
+  stringstream aux;
 
-double Habitacion::get_precio_noche() const {
-  return precio_noche;
-}
+  aux << "Habitacion " << numero
+      << " tipo " << tipo
+      << " estado " << (disponible ? "disponible" : "ocupada")
+      << " precio por noche " << precio_noche
+      << " desayuno incluido " << (desayuno_incluido ? "si" : "no");
 
-string Habitacion::get_tipo() const {
-  return tipo;
-}
+  if (!disponible) {
+    aux << " noches " << noches
+        << " costo total " << costo_total();
+  }
 
-bool Habitacion::get_disponible() const {
-  return disponible;
-}
+  aux << "\n";
 
-void Habitacion::reservar(int noch) {
-  noches = noch;
-  disponible = false;
-}
-
-void Habitacion::liberar() {
-  noches = 0;
-  disponible = true;
+  return aux.str();
 }
