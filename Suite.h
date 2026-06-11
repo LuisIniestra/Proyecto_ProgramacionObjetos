@@ -1,3 +1,11 @@
+/*
+ *
+ * Proyecto Hotel clase Suite
+ *
+ * Esta clase define el objeto Suite que hereda de Habitacion.
+ * Representa una suite del hotel.
+ */
+
 #ifndef SUITE_H_
 #define SUITE_H_
 
@@ -6,32 +14,22 @@
 
 using namespace std;
 
+//Declaro objeto Suite que hereda de Habitacion
 class Suite: public Habitacion {
-  // Suite hereda de Habitacion.
 
+  //Declaro variables de instancia privadas
   private:
     double servicio_extra;
-    // Cargo adicional por servicio de suite.
-
     double descuento;
-    // Descuento aplicado a la suite.
 
+  //Declaro constructores y metodos publicos
   public:
     Suite();
-    // Constructor por default.
-
     Suite(int num, int noch, double precio, double servicio);
-    // Constructor con servicio extra.
-
     Suite(int num, int noch, double precio, double servicio, double desc);
-    // Constructor sobrecargado.
-    // Permite agregar descuento.
 
     double costo_total() const override;
-    // Sobreescribe costo_total().
-
     string to_string() const override;
-    // Sobreescribe to_string().
 };
 
-#endif
+#endif // SUITE_H_
