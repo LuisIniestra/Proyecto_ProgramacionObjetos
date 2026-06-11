@@ -3,52 +3,70 @@
 using namespace std;
 
 Habitacion::Habitacion() {
-  // Constructor por default de la clase Habitacion
+  // Constructor por default con valores base.
 
   numero = 0;
-
   noches = 0;
-
   precio_noche = 0;
-  // Inicializa las variables en cero
-
   tipo = "habitacion";
-  // Inicializa el tipo en un valor generico
+  disponible = true;
 }
 
-Habitacion::Habitacion(int num, int noch, double precio, string tip) {
-  // Constructor con parámetros.
-  
-  numero = num;// Guarda el numero de habitacion recibido
+Habitacion::Habitacion(int num, double precio, string tip) {
+  // Constructor que inicializa una habitación con datos reales.
 
-  noches = noch; // Guarda la cantidad de noches recibida
+  numero = num;
+  noches = 0;
+  // Empieza en 0 porque la habitación todavía no está reservada.
 
-  precio_noche = precio; // Guarda el precio por noche recibido
-
-  tipo = tip; // Guarda el tipo de habitacion recibido
-
+  precio_noche = precio;
+  tipo = tip;
+  disponible = true;
+  // Toda habitación nueva comienza disponible.
 }
 
 Habitacion::~Habitacion() {
-  // Destructor virtual de Habitacion permite destruir correctamente objetos hijos como Individual,Doble o Suite.
+  // Destructor virtual.
+  // Está vacío porque no hay memoria dinámica dentro de Habitacion,
+  // pero es necesario para borrar correctamente objetos hijos.
 }
 
-int Habitacion::get_numero() const { // Getter para consultar el número de habitacion
-
-  return numero; // Regresa el numero de la habitacion
+int Habitacion::get_numero() const {
+  return numero;
 }
 
-int Habitacion::get_noches() const { // Getter para consultar la cantidad de noches
-
-  return noches; // Regresa las noches registradas
+int Habitacion::get_noches() const {
+  return noches;
 }
 
-double Habitacion::get_precio_noche() const {// Getter para consultar el precio por noche
-
-  return precio_noche; // Regresa el precio base por noche
+double Habitacion::get_precio_noche() const {
+  return precio_noche;
 }
 
-string Habitacion::get_tipo() const { // Getter para consultar el tipo de habitacion
+string Habitacion::get_tipo() const {
+  return tipo;
+}
 
-  return tipo; // Regresa si es individual, doble o suite
+bool Habitacion::get_disponible() const {
+  return disponible;
+}
+
+void Habitacion::reservar(int noch) {
+  // Reserva la habitación.
+
+  noches = noch;
+  // Guarda cuántas noches se reservó.
+
+  disponible = false;
+  // Cambia el estado a ocupada.
+}
+
+void Habitacion::liberar() {
+  // Libera la habitación.
+
+  noches = 0;
+  // Borra las noches de la reserva anterior.
+
+  disponible = true;
+  // Cambia el estado a disponible.
 }
