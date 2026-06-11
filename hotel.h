@@ -10,51 +10,60 @@
 using namespace std;
 
 const int MAX_HABITACIONES = 100;
-// Define el máximo de habitaciones que puede guardar el sistema
+// Capacidad máxima del arreglo.
+// El hotel usa 88 habitaciones en total.
 
 class Hotel {
-  // Clase administradora del proyecto
+  // Clase administradora del sistema.
 
   private:
     Habitacion *habitaciones[MAX_HABITACIONES];
-    // Arreglo de apuntadores de tipo Habitacion* (polimorfismo)
-    // Aunque el arreglo es de Habitacion*, puede guardar objetos Individual, Doble o Suite
+    // Arreglo de apuntadores a Habitacion.
+    // Aquí se aplica polimorfismo porque puede guardar Individual, Doble o Suite.
 
     int num_habitaciones;
-    // Contador de habitaciones registradas, sirve para saber cuántos espacios del arreglo ya están ocupados
+    // Cantidad de habitaciones creadas en el hotel.
 
-    bool datos_validos(int numero, int noches, double precio);
-    // Metodo privado para validar datos basicos antes de crear una habitacion
+    bool noches_validas(int noches);
+    // Valida que la reserva tenga noches mayores a cero.
 
   public:
     Hotel();
-    // Constructor de Hotel. Inicializa el contador y prepara el arreglo de apuntadores.
+    // Constructor de Hotel.
 
     ~Hotel();
-    // Destructor de Hotel. Libera la memoria de las habitaciones creadas con new.
+    // Destructor.
+    // Borra las habitaciones creadas con new.
 
-    void crea_ejemplos(); // Crea habitaciones de prueba para no capturar datos manualmente.
+    void crea_habitaciones_hotel();
+    // Crea automáticamente las 88 habitaciones del hotel.
 
-    void muestra_habitaciones(); // Muestra todas las habitaciones registradas.
+    void muestra_habitaciones();
+    // Muestra todas las habitaciones.
 
-    void muestra_habitaciones(string tipo);
-    // Muestra habitaciones filtradas por tipo. Aquí hay sobrecarga porque existe otro método con el mismo nombre, pero sin parámetros.
+    void muestra_disponibles();
+    // Muestra todas las habitaciones disponibles.
 
-    double calc_ingreso_total(); // Calcula el ingreso total de todas las habitaciones.
+    void muestra_disponibles(string tipo);
+    // Muestra habitaciones disponibles por tipo.
+    // Sobrecarga de método.
 
-    double calc_ingreso_total(string tipo); // Calcula el ingreso total de un solo tipo de habitación. Aquí también hay sobrecarga porque existe otra versión sin parámetros.
+    void muestra_ocupadas();
+    // Muestra todas las habitaciones ocupadas.
 
-    void agrega_individual(int numero, int noches, double precio); // Agrega una habitación individual sin desayuno. Usa el constructor de Individual sin el parámetro desayuno.
+    void muestra_ocupadas(string tipo);
+    // Muestra habitaciones ocupadas por tipo.
+    // Sobrecarga de método.
 
-    void agrega_individual(int numero, int noches, double precio, bool desayuno); // Agrega una habitación individual con desayuno. Hay sobrecarga porque este método tiene el mismo nombre, pero recibe un parámetro extra.
+    bool reservar_habitacion(string tipo, int noches);
+    // Reserva automáticamente la primera habitación disponible del tipo solicitado.
 
-    void agrega_doble(int numero, int noches, double precio); // Agrega una habitación doble sin cargo extra.
+    double calc_ingreso_total();
+    // Calcula el ingreso total de habitaciones ocupadas.
 
-    void agrega_doble(int numero, int noches, double precio, double cargo); // Agrega una habitación doble con cargo extra. Sobrecarga del método agrega_doble.
-
-    void agrega_suite(int numero, int noches, double precio, double servicio); // Agrega una suite con servicio extra, pero sin descuento.
-
-    void agrega_suite(int numero, int noches, double precio, double servicio, double descuento); // Agrega una suite con servicio extra y descuento. Sobrecarga del método agrega_suite.
+    double calc_ingreso_total(string tipo);
+    // Calcula ingreso por tipo de habitación.
+    // Sobrecarga de método.
 };
 
 #endif
