@@ -29,7 +29,7 @@ int main() {
 
   do {
 
-    cout << "\n===== SISTEMA DE HOTEL =====\n";
+    cout << "\nSISTEMA DE HOTEL\n";
     cout << "1. Agregar habitacion individual\n";
     cout << "2. Agregar habitacion doble\n";
     cout << "3. Agregar suite\n";
@@ -128,7 +128,7 @@ int main() {
 
     else if (opcion == 8) {
 
-      cout << "\nSaliendo del sistema...\n";
+      cout << "\nSaliendo del sistema.\n";
     }
 
     else {
