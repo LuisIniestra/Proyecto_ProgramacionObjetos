@@ -5,20 +5,24 @@
 using namespace std;
 
 int main() {
+  // Inicio del programa.
 
   Hotel hotel;
+  // Crea el objeto principal del sistema.
 
   int opcion = 0;
-  int numero;
-  int noches;
-  double precio;
-  double cargo;
-  double servicio;
-  double descuento;
+  int numero = 0;
+  int noches = 0;
+  double precio = 0;
+  double cargo = 0;
+  double servicio = 0;
+  double descuento = 0;
   string tipo;
   char respuesta;
 
   do {
+    // Menú interactivo para que el usuario use el sistema.
+
     cout << "\n===== SISTEMA DE HOTEL =====\n";
     cout << "1. Agregar habitacion individual\n";
     cout << "2. Agregar habitacion doble\n";
@@ -32,6 +36,7 @@ int main() {
     cin >> opcion;
 
     if (opcion == 1) {
+      // Agregar habitación individual.
 
       cout << "\nNumero de habitacion: ";
       cin >> numero;
@@ -51,11 +56,10 @@ int main() {
       else {
         hotel.agrega_individual(numero, noches, precio);
       }
-
-      cout << "Habitacion individual agregada.\n";
     }
 
     else if (opcion == 2) {
+      // Agregar habitación doble.
 
       cout << "\nNumero de habitacion: ";
       cin >> numero;
@@ -78,11 +82,10 @@ int main() {
       else {
         hotel.agrega_doble(numero, noches, precio);
       }
-
-      cout << "Habitacion doble agregada.\n";
     }
 
     else if (opcion == 3) {
+      // Agregar suite.
 
       cout << "\nNumero de habitacion: ";
       cin >> numero;
@@ -108,19 +111,19 @@ int main() {
       else {
         hotel.agrega_suite(numero, noches, precio, servicio);
       }
-
-      cout << "Suite agregada.\n";
     }
 
     else if (opcion == 4) {
+      // Mostrar todas las habitaciones.
 
       cout << "\nHabitaciones registradas:\n\n";
       hotel.muestra_habitaciones();
     }
 
     else if (opcion == 5) {
+      // Mostrar habitaciones filtradas por tipo.
 
-      cout << "\nEscribe el tipo de habitacion que quieres mostrar.\n";
+      cout << "\nEscribe el tipo de habitacion.\n";
       cout << "Opciones: individual, doble, suite\n";
       cout << "Tipo: ";
       cin >> tipo;
@@ -130,30 +133,34 @@ int main() {
     }
 
     else if (opcion == 6) {
+      // Calcular ingreso total.
 
       cout << "\nIngreso total del hotel: ";
       cout << hotel.calc_ingreso_total() << endl;
     }
 
     else if (opcion == 7) {
+      // Calcular ingreso por tipo.
 
-      cout << "\nEscribe el tipo de habitacion para calcular ingreso.\n";
+      cout << "\nEscribe el tipo de habitacion.\n";
       cout << "Opciones: individual, doble, suite\n";
       cout << "Tipo: ";
       cin >> tipo;
 
-      cout << "Ingreso total por habitaciones tipo " << tipo << ": ";
+      cout << "Ingreso total por " << tipo << ": ";
       cout << hotel.calc_ingreso_total(tipo) << endl;
     }
 
     else if (opcion == 8) {
+      // Salir del sistema.
 
       cout << "\nSaliendo del sistema...\n";
     }
 
     else {
+      // Validación de opción incorrecta.
 
-      cout << "\nOpcion no valida. Intenta de nuevo.\n";
+      cout << "\nOpcion no valida.\n";
     }
 
   } while (opcion != 8);
