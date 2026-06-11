@@ -1,30 +1,36 @@
-#ifndef INDIVIDUAL_H_
-#define INDIVIDUAL_H_
+#ifndef HABITACION_H_
+#define HABITACION_H_
 
-#include "habitacion.h"
 #include <string>
 
 using namespace std;
 
-class Individual: public Habitacion { // La clase Individual hereda de Habitacion.
+class Habitacion {
 
-  private:
-    bool desayuno_incluido; // Atributo propio de la habitación individual.
+  protected:
+    int numero;
+    int noches;
+    double precio_noche;
+    string tipo;
+    bool disponible;
 
   public:
-    Individual(); // Constructor.
+    Habitacion();
+    Habitacion(int num, double precio, string tip);
 
-    Individual(int num, int noch, double precio); // Constructor con parametros.
+    virtual ~Habitacion();
 
-    Individual(int num, int noch, double precio, bool desayuno);
-    // Constructor sobrecargado. Recibe los mismos datos anteriores, pero también si incluye desayuno. (overloading)
-   
-    double costo_total() const override;
-    // Sobreescritura del método costo_total(). Este método venía como virtual en Habitacion.
+    int get_numero() const;
+    int get_noches() const;
+    double get_precio_noche() const;
+    string get_tipo() const;
+    bool get_disponible() const;
 
-    string to_string() const override;
-    // Sobreescritura del método to_string().
+    void reservar(int noch);
+    void liberar();
 
+    virtual double costo_total() const = 0;
+    virtual string to_string() const = 0;
 };
 
 #endif
