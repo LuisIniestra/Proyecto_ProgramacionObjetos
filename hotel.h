@@ -10,77 +10,64 @@
 using namespace std;
 
 const int MAX_HABITACIONES = 100;
-// Define el máximo de habitaciones que puede guardar el sistema.
-// Esto evita crecer el arreglo sin control.
+// Capacidad máxima de habitaciones que puede registrar el sistema.
 
 class Hotel {
   // Clase administradora del proyecto.
-  // Su trabajo es manejar las habitaciones registradas.
 
   private:
     Habitacion *habitaciones[MAX_HABITACIONES];
-    // Arreglo de apuntadores de tipo Habitacion*.
-    // Aquí se aplica polimorfismo.
-    // Aunque el arreglo es de Habitacion*, puede guardar objetos Individual, Doble o Suite.
-    // Ejemplo: habitaciones[0] puede apuntar a una Individual.
+    // Arreglo de apuntadores a Habitacion.
+    // Aquí se aplica polimorfismo porque puede guardar Individual, Doble o Suite.
 
     int num_habitaciones;
     // Contador de habitaciones registradas.
-    // Sirve para saber cuántos espacios del arreglo ya están ocupados.
 
     bool datos_validos(int numero, int noches, double precio);
-    // Método privado para validar datos básicos antes de crear una habitación.
-    // Es private porque solo Hotel lo usa internamente.
+    // Valida datos básicos antes de agregar una habitación.
 
   public:
     Hotel();
     // Constructor de Hotel.
-    // Inicializa el contador y prepara el arreglo de apuntadores.
 
     ~Hotel();
-    // Destructor de Hotel.
-    // Libera la memoria de las habitaciones creadas con new.
-
-    void crea_ejemplos();
-    // Crea habitaciones de prueba para no capturar datos manualmente.
+    // Destructor.
+    // Borra las habitaciones creadas con new.
 
     void muestra_habitaciones();
-    // Muestra todas las habitaciones registradas.
+    // Muestra todas las habitaciones.
 
     void muestra_habitaciones(string tipo);
-    // Muestra habitaciones filtradas por tipo.
-    // Aquí hay sobrecarga porque existe otro método con el mismo nombre,
-    // pero sin parámetros.
+    // Muestra habitaciones por tipo.
+    // Sobrecarga de método.
 
     double calc_ingreso_total();
     // Calcula el ingreso total de todas las habitaciones.
 
     double calc_ingreso_total(string tipo);
-    // Calcula el ingreso total de un solo tipo de habitación.
-    // Aquí también hay sobrecarga porque existe otra versión sin parámetros.
+    // Calcula ingreso por tipo.
+    // Sobrecarga de método.
 
     void agrega_individual(int numero, int noches, double precio);
-    // Agrega una habitación individual sin desayuno.
-    // Usa el constructor de Individual sin el parámetro desayuno.
+    // Agrega habitación individual sin desayuno.
 
     void agrega_individual(int numero, int noches, double precio, bool desayuno);
-    // Agrega una habitación individual con desayuno.
-    // Hay sobrecarga porque este método tiene el mismo nombre,
-    // pero recibe un parámetro extra.
+    // Agrega habitación individual con desayuno.
+    // Sobrecarga.
 
     void agrega_doble(int numero, int noches, double precio);
-    // Agrega una habitación doble sin cargo extra.
+    // Agrega habitación doble sin cargo extra.
 
     void agrega_doble(int numero, int noches, double precio, double cargo);
-    // Agrega una habitación doble con cargo extra.
-    // Sobrecarga del método agrega_doble.
+    // Agrega habitación doble con cargo extra.
+    // Sobrecarga.
 
     void agrega_suite(int numero, int noches, double precio, double servicio);
-    // Agrega una suite con servicio extra, pero sin descuento.
+    // Agrega suite con servicio extra.
 
     void agrega_suite(int numero, int noches, double precio, double servicio, double descuento);
-    // Agrega una suite con servicio extra y descuento.
-    // Sobrecarga del método agrega_suite.
+    // Agrega suite con servicio extra y descuento.
+    // Sobrecarga.
 };
 
 #endif
