@@ -7,42 +7,31 @@
 using namespace std;
 
 class Suite: public Habitacion {
-  // La clase Suite hereda de Habitacion.
-  // Aquí se aplica herencia.
-  // Suite es una clase concreta porque implementará los métodos abstractos de Habitacion.
+  // Suite hereda de Habitacion.
 
   private:
     double servicio_extra;
-    // Atributo propio de Suite.
-    // Representa un cobro adicional por servicios de mayor categoría.
+    // Cargo adicional por servicio de suite.
 
     double descuento;
-    // Atributo propio de Suite.
-    // Representa una reducción aplicada al costo final.
+    // Descuento aplicado a la suite.
 
   public:
     Suite();
     // Constructor por default.
-    // Crea una suite con valores base.
-    // También ayuda a mostrar sobrecarga de constructores.
 
     Suite(int num, int noch, double precio, double servicio);
-    // Constructor con número, noches, precio y servicio extra.
-    // No recibe descuento, entonces el descuento se puede dejar en 0.
+    // Constructor con servicio extra.
 
     Suite(int num, int noch, double precio, double servicio, double desc);
     // Constructor sobrecargado.
-    // Recibe número, noches, precio, servicio extra y descuento.
-    // Aquí se aplica overloading porque hay varios constructores Suite con diferentes parámetros.
+    // Permite agregar descuento.
 
     double costo_total() const override;
-    // Sobreescritura del método costo_total().
-    // Este método venía como virtual puro en Habitacion.
-    // Suite está obligada a implementarlo porque Habitacion es abstracta.
+    // Sobreescribe costo_total().
 
     string to_string() const override;
-    // Sobreescritura del método to_string().
-    // Sirve para que Suite tenga su propia forma de mostrar información.
+    // Sobreescribe to_string().
 };
 
 #endif
