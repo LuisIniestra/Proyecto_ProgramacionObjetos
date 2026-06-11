@@ -4,6 +4,8 @@ Este proyecto trata sobre un sistema básico para administrar habitaciones de un
 
 El sistema trabaja con habitaciones Individuales, Dobles y Suites. Cada tipo de habitación tiene una forma diferente de calcular su costo, por lo que el proyecto permite aplicar conceptos de Programación Orientada a Objetos como herencia, polimorfismo, abstracción y encapsulamiento.
 
+![image alt](https://github.com/LuisIniestra/Proyecto_ProgramacionObjetos/blob/61c35d92337b25d615a259ac57e8579cb684617a/UML.png)
+
 ## Funcionalidad
 
 El programa permitirá registrar diferentes tipos de habitaciones dentro de un hotel.
