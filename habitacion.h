@@ -7,43 +7,42 @@ using namespace std;
 
 class Habitacion {
   // Clase padre del proyecto.
-  // Es abstracta porque tiene métodos virtuales puros.
+  // También es la clase abstracta del sistema.
 
   protected:
     int numero;
-    // Número real de la habitación dentro del hotel.
+    // Número de la habitación.
+    // Es protected para que las clases hijas puedan usarlo directamente.
 
     int noches;
-    // Cantidad de noches reservadas.
-    // Si la habitación está disponible, este valor queda en 0.
+    // Cantidad de noches que se va a rentar la habitación.
 
     double precio_noche;
-    // Precio base por noche.
-    // El usuario ya no lo decide; el sistema lo asigna según el tipo de habitación.
+    // Precio base por cada noche.
 
     string tipo;
     // Tipo de habitación: individual, doble o suite.
 
-    bool disponible;
-    // Indica si la habitación está disponible o ya fue reservada.
-
   public:
     Habitacion();
     // Constructor por default.
+    // Lo dejamos como ejemplo de sobrecarga de constructores.
 
-    Habitacion(int num, double precio, string tip);
+    Habitacion(int num, int noch, double precio, string tip);
     // Constructor con parámetros.
-    // Se usa para crear habitaciones reales con número, precio y tipo.
+    // Sirve para inicializar una habitación con datos reales.
+    // Aquí hay sobrecarga porque existen dos constructores Habitacion.
 
     virtual ~Habitacion();
     // Destructor virtual.
-    // Es importante porque Hotel borra objetos usando apuntadores Habitacion*.
+    // Se usa porque Hotel manejará habitaciones mediante apuntadores Habitacion*.
+    // Esto ayuda a destruir correctamente los objetos hijos.
 
     int get_numero() const;
-    // Regresa el número de habitación.
+    // Regresa el número de la habitación.
 
     int get_noches() const;
-    // Regresa la cantidad de noches reservadas.
+    // Regresa la cantidad de noches.
 
     double get_precio_noche() const;
     // Regresa el precio por noche.
@@ -51,22 +50,15 @@ class Habitacion {
     string get_tipo() const;
     // Regresa el tipo de habitación.
 
-    bool get_disponible() const;
-    // Regresa true si la habitación está disponible.
-
-    void reservar(int noch);
-    // Cambia la habitación a ocupada y guarda el número de noches.
-
-    void liberar();
-    // Libera la habitación y reinicia las noches a 0.
-
     virtual double costo_total() const = 0;
-    // Método virtual puro.
+    // MÉTODO VIRTUAL PURO.
     // Aquí se demuestra que Habitacion es una clase abstracta.
-    // Obliga a Individual, Doble y Suite a implementar su propio cálculo.
+    // El = 0 significa que Habitacion no puede crear objetos directamente.
+    // Obliga a las clases hijas a implementar su propio costo_total().
 
     virtual string to_string() const = 0;
-    // Método virtual puro.
+    // MÉTODO VIRTUAL PURO.
+    // También demuestra que Habitacion es abstracta.
     // Obliga a las clases hijas a implementar su propia forma de mostrar datos.
 };
 
