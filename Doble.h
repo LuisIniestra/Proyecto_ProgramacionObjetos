@@ -6,27 +6,29 @@
 
 using namespace std;
 
-class Doble: public Habitacion { // La clase Doble hereda de Habitacion.
+class Doble: public Habitacion {
+  // Doble hereda de Habitacion.
 
   private:
     double cargo_extra;
-    // Atributo propio de la habitación doble
+    // Atributo propio de la habitación doble.
 
   public:
     Doble();
-    // Constructor por default
+    // Constructor por default.
 
-    Doble(int num, int noch, double precio);
-    // Constructor con parámetros basicos
+    Doble(int num, double precio);
+    // Constructor con número y precio.
 
-    Doble(int num, int noch, double precio, double cargo);
-    // Constructor sobrecargado. Recibe numero, noches, precio y cargo extra (overloading)
+    Doble(int num, double precio, double cargo);
+    // Constructor sobrecargado.
+    // Permite agregar cargo extra.
 
     double costo_total() const override;
-    // Sobreescritura del método costo_total() de la clase abstracta
+    // Sobreescribe el cálculo de Habitacion.
 
     string to_string() const override;
-    // Sobreescritura del método to_string() de la clase abstracta
+    // Sobreescribe la forma de mostrar información.
 };
 
 #endif
