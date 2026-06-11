@@ -1,3 +1,11 @@
+/*
+ *
+ * Proyecto Hotel clase Individual
+ *
+ * Esta clase define el objeto Individual que hereda de Habitacion.
+ * Representa una habitacion individual del hotel.
+ */
+
 #ifndef INDIVIDUAL_H_
 #define INDIVIDUAL_H_
 
@@ -6,30 +14,21 @@
 
 using namespace std;
 
+//Declaro objeto Individual que hereda de Habitacion
 class Individual: public Habitacion {
-  // Individual hereda de Habitacion.
-  // Aquí se aplica herencia.
 
+  //Declaro variables de instancia privadas
   private:
     bool desayuno_incluido;
-    // Atributo propio de la habitación individual.
 
+  //Declaro constructores y metodos publicos
   public:
     Individual();
-    // Constructor por default.
-
     Individual(int num, int noch, double precio);
-    // Constructor con número, noches y precio.
-
     Individual(int num, int noch, double precio, bool desayuno);
-    // Constructor sobrecargado.
-    // Permite indicar si incluye desayuno.
 
     double costo_total() const override;
-    // Sobreescribe el método abstracto costo_total() de Habitacion.
-
     string to_string() const override;
-    // Sobreescribe el método abstracto to_string() de Habitacion.
 };
 
-#endif
+#endif // INDIVIDUAL_H_
