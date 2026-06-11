@@ -1,45 +1,52 @@
-#include "individual.h"
-#include <sstream>
+#include "habitacion.h"
 
 using namespace std;
 
-Individual::Individual(): Habitacion(0, 0, 0, "individual") { // Llama al constructor de la clase padre Habitacion
-
-  desayuno_incluido = false; // Por default la habitación individual no incluye desayuno
+Habitacion::Habitacion() {
+  numero = 0;
+  noches = 0;
+  precio_noche = 0;
+  tipo = "habitacion";
+  disponible = true;
 }
 
-Individual::Individual(int num, int noch, double precio):
-  Habitacion(num, noch, precio, "individual") {
-  // Constructor con parametros básicos llama al constructor de Habitacion para inicializar los atributos heredados
-  
-  desayuno_incluido = false;
-  // Como este constructor no recibe desayuno, se deja en false
+Habitacion::Habitacion(int num, double precio, string tip) {
+  numero = num;
+  noches = 0;
+  precio_noche = precio;
+  tipo = tip;
+  disponible = true;
 }
 
-Individual::Individual(int num, int noch, double precio, bool desayuno):
-  Habitacion(num, noch, precio, "individual") {
-  // Constructor sobrecargado. Aquí se aplica overloading porque existe otro constructor Individual con diferente cantidad de parametros
-  
-  desayuno_incluido = desayuno;
-  // Guarda el valor recibido en el atributo propio de Individual
+Habitacion::~Habitacion() {
 }
 
-double Individual::costo_total() const {
-  // Implementación del método costo_total() de la clase abstracta
-
-  return precio_noche * noches;
-  // Calcula el costo de una habitación individual
+int Habitacion::get_numero() const {
+  return numero;
 }
 
-string Individual::to_string() const {
-  // Implementación del método to_string() de la clase abstracta (overriding)
+int Habitacion::get_noches() const {
+  return noches;
+}
 
-  stringstream aux;
-  // stringstream permite construir un texto usando varios datos.
+double Habitacion::get_precio_noche() const {
+  return precio_noche;
+}
 
-  aux << "Habitacion " << numero << " tipo " << tipo << " noches " << noches << " precio por noche " << precio_noche << " desayuno incluido " << (desayuno_incluido ? "si" : "no") << " costo total " << costo_total() << "\n";
-  // Se usan atributos heredados de Habitacion y el atributo propio desayuno_incluido.
+string Habitacion::get_tipo() const {
+  return tipo;
+}
 
-  return aux.str();
-  // Convierte el stringstream en string y lo regresa.
+bool Habitacion::get_disponible() const {
+  return disponible;
+}
+
+void Habitacion::reservar(int noch) {
+  noches = noch;
+  disponible = false;
+}
+
+void Habitacion::liberar() {
+  noches = 0;
+  disponible = true;
 }
