@@ -7,238 +7,219 @@ Hotel::Hotel() {
   // Constructor de Hotel.
 
   num_habitaciones = 0;
-  // Inicializa el contador en cero porque al crear el hotel todavía no hay habitaciones registradas.
+  // Al inicio no hay habitaciones creadas.
 
   for (int i = 0; i < MAX_HABITACIONES; i++) {
-    // Recorre todo el arreglo de apuntadores.
-
     habitaciones[i] = 0;
-    // Inicializa cada posición en 0 Esto evita que los apuntadores tengan basura de memoria.
+    // Inicializa apuntadores para evitar basura de memoria.
   }
 }
 
 Hotel::~Hotel() {
   // Destructor de Hotel.
-  // Se ejecuta automáticamente cuando el objeto hotel deja de existir.
 
   for (int i = 0; i < num_habitaciones; i++) {
-    // Recorre solamente las habitaciones que sí fueron registradas.
-
     delete habitaciones[i];
     // Libera la memoria de cada habitación creada con new.
-    // Esto es necesario porque Individual, Doble y Suite se crean en memoria dinámica.
-    // Como Habitacion tiene destructor virtual, se destruye correctamente el objeto real.
   }
 }
 
-bool Hotel::datos_validos(int numero, int noches, double precio) {
-  // Método auxiliar para validar datos antes de crear una habitación.
-  // Es private porque solo Hotel lo usa internamente.
-
-  return numero > 0 && noches > 0 && precio > 0;
-  // Regresa true si el número, las noches y el precio son mayores a cero.
-  // Si alguno no cumple, regresa false.
+bool Hotel::noches_validas(int noches) {
+  return noches > 0;
+  // Solo acepta reservas de una o más noches.
 }
 
-void Hotel::crea_ejemplos() {
-  // Crea habitaciones de prueba.
-  // Sirve para probar el programa sin pedir datos al usuario.
+void Hotel::crea_habitaciones_hotel() {
+  // Crea automáticamente todas las habitaciones del hotel.
+  // El usuario ya no inventa números ni precios.
 
-  agrega_individual(101, 2, 850, true);
-  // Agrega una habitación individual con desayuno.
-  // Usa la versión sobrecargada de agrega_individual que recibe bool desayuno.
+  if (num_habitaciones > 0) {
+    return;
+    // Evita crear habitaciones duplicadas si el método se llama más de una vez.
+  }
 
-  agrega_individual(102, 1, 750);
-  // Agrega una habitación individual sin desayuno.
-  // Usa la versión de agrega_individual sin bool desayuno.
+  int numero = 0;
 
-  agrega_doble(201, 3, 1200, 300);
-  // Agrega una habitación doble con cargo extra.
+  for (int piso = 1; piso <= 5; piso++) {
+    // Pisos 1 al 5: habitaciones individuales.
 
-  agrega_doble(202, 2, 1100);
-  // Agrega una habitación doble sin cargo extra.
+    for (int cuarto = 1; cuarto <= 10; cuarto++) {
+      // 10 habitaciones individuales por piso.
 
-  agrega_suite(301, 2, 2500, 900, 300);
-  // Agrega una suite con servicio extra y descuento.
+      numero = piso * 100 + cuarto;
+      // Genera números como 101, 102, ..., 510.
 
-  agrega_suite(302, 1, 2800, 1000);
-  // Agrega una suite con servicio extra, pero sin descuento.
+      habitaciones[num_habitaciones] = new Individual(numero, 850, true);
+      // Crea una habitación individual con precio fijo.
+
+      num_habitaciones++;
+    }
+  }
+
+  for (int piso = 6; piso <= 10; piso++) {
+    // Pisos 6 al 10: habitaciones dobles.
+
+    for (int cuarto = 1; cuarto <= 6; cuarto++) {
+      // 6 habitaciones dobles por piso.
+
+      numero = piso * 100 + cuarto;
+      // Genera números como 601, 602, ..., 1006.
+
+      habitaciones[num_habitaciones] = new Doble(numero, 1200, 250);
+      // Crea una habitación doble con precio y cargo fijo.
+
+      num_habitaciones++;
+    }
+  }
+
+  for (int piso = 11; piso <= 12; piso++) {
+    // Pisos 11 y 12: suites.
+
+    for (int cuarto = 1; cuarto <= 4; cuarto++) {
+      // 4 suites por piso.
+
+      numero = piso * 100 + cuarto;
+      // Genera números como 1101, 1102, ..., 1204.
+
+      habitaciones[num_habitaciones] = new Suite(numero, 2500, 900, 300);
+      // Crea una suite con precio, servicio extra y descuento fijo.
+
+      num_habitaciones++;
+    }
+  }
 }
 
 void Hotel::muestra_habitaciones() {
-  // Método para mostrar todas las habitaciones registradas.
+  // Muestra todas las habitaciones del hotel.
 
   for (int i = 0; i < num_habitaciones; i++) {
-    // Recorre todas las habitaciones que sí existen en el arreglo.
-
     cout << habitaciones[i]->to_string();
-    // Imprime la información de cada habitación.
-    // Aquí se aplica polimorfismo:
-    // aunque habitaciones[i] es Habitacion*, se ejecuta el to_string() real
-    // de Individual, Doble o Suite.
+    // Polimorfismo:
+    // se ejecuta el to_string() correcto según el tipo real.
   }
 }
 
-void Hotel::muestra_habitaciones(string tipo) {
-  // Método sobrecargado.
-  // Tiene el mismo nombre que muestra_habitaciones(), pero recibe un string.
-  // Sirve para mostrar solo un tipo de habitación.
+void Hotel::muestra_disponibles() {
+  // Muestra solo habitaciones disponibles.
+
+  bool hay_disponibles = false;
 
   for (int i = 0; i < num_habitaciones; i++) {
-    // Recorre todas las habitaciones registradas.
-
-    if (habitaciones[i]->get_tipo() == tipo) {
-      // Compara el tipo de la habitación con el tipo recibido.
-      // Por ejemplo: "individual", "doble" o "suite".
-
+    if (habitaciones[i]->get_disponible()) {
       cout << habitaciones[i]->to_string();
-      // Imprime solo las habitaciones que coinciden con el tipo.
-      // También se aplica polimorfismo por el uso de to_string().
+      hay_disponibles = true;
     }
   }
+
+  if (!hay_disponibles) {
+    cout << "No hay habitaciones disponibles.\n";
+  }
+}
+
+void Hotel::muestra_disponibles(string tipo) {
+  // Muestra habitaciones disponibles filtradas por tipo.
+
+  bool hay_disponibles = false;
+
+  for (int i = 0; i < num_habitaciones; i++) {
+    if (habitaciones[i]->get_disponible() && habitaciones[i]->get_tipo() == tipo) {
+      cout << habitaciones[i]->to_string();
+      hay_disponibles = true;
+    }
+  }
+
+  if (!hay_disponibles) {
+    cout << "No hay habitaciones disponibles de tipo " << tipo << ".\n";
+  }
+}
+
+void Hotel::muestra_ocupadas() {
+  // Muestra habitaciones ocupadas.
+
+  bool hay_ocupadas = false;
+
+  for (int i = 0; i < num_habitaciones; i++) {
+    if (!habitaciones[i]->get_disponible()) {
+      cout << habitaciones[i]->to_string();
+      hay_ocupadas = true;
+    }
+  }
+
+  if (!hay_ocupadas) {
+    cout << "No hay habitaciones ocupadas.\n";
+  }
+}
+
+void Hotel::muestra_ocupadas(string tipo) {
+  // Muestra habitaciones ocupadas filtradas por tipo.
+
+  bool hay_ocupadas = false;
+
+  for (int i = 0; i < num_habitaciones; i++) {
+    if (!habitaciones[i]->get_disponible() && habitaciones[i]->get_tipo() == tipo) {
+      cout << habitaciones[i]->to_string();
+      hay_ocupadas = true;
+    }
+  }
+
+  if (!hay_ocupadas) {
+    cout << "No hay habitaciones ocupadas de tipo " << tipo << ".\n";
+  }
+}
+
+bool Hotel::reservar_habitacion(string tipo, int noches) {
+  // Reserva la primera habitación disponible del tipo solicitado.
+
+  if (!noches_validas(noches)) {
+    cout << "La cantidad de noches no es valida.\n";
+    return false;
+  }
+
+  for (int i = 0; i < num_habitaciones; i++) {
+    if (habitaciones[i]->get_tipo() == tipo && habitaciones[i]->get_disponible()) {
+      // Busca la primera habitación disponible que coincida con el tipo.
+
+      habitaciones[i]->reservar(noches);
+      // Cambia el estado de la habitación a ocupada.
+
+      cout << "Reservacion realizada correctamente.\n";
+      cout << "Habitacion asignada:\n";
+      cout << habitaciones[i]->to_string();
+
+      return true;
+    }
+  }
+
+  cout << "No hay habitaciones disponibles de tipo " << tipo << ".\n";
+  return false;
 }
 
 double Hotel::calc_ingreso_total() {
-  // Calcula el ingreso total de todas las habitaciones.
-  // Es decir, suma todos los costos.
+  // Calcula el ingreso total de habitaciones ocupadas.
 
   double total = 0;
-  // Variable acumuladora.
-  // Aquí se irá sumando el costo de cada habitación.
 
   for (int i = 0; i < num_habitaciones; i++) {
-    // Recorre todas las habitaciones registradas.
-
-    total = total + habitaciones[i]->costo_total();
-    // Suma el costo de cada habitación.
-    // Aquí se aplica polimorfismo:
-    // si el objeto real es Individual, usa costo_total() de Individual.
-    // si es Doble, usa costo_total() de Doble.
-    // si es Suite, usa costo_total() de Suite.
-  }
-
-  return total;
-  // Regresa la suma total.
-}
-
-double Hotel::calc_ingreso_total(string tipo) {
-  // Método sobrecargado.
-  // Calcula el ingreso total, pero solo de un tipo de habitación.
-
-  double total = 0;
-  // Variable acumuladora.
-
-  for (int i = 0; i < num_habitaciones; i++) {
-    // Recorre todas las habitaciones.
-
-    if (habitaciones[i]->get_tipo() == tipo) {
-      // Solo toma en cuenta las habitaciones que coinciden con el tipo recibido.
-
+    if (!habitaciones[i]->get_disponible()) {
       total = total + habitaciones[i]->costo_total();
-      // Suma el costo de esa habitación.
-      // Aquí también se aplica polimorfismo.
+      // Polimorfismo:
+      // cada habitación calcula su costo según su clase real.
     }
   }
 
   return total;
-  // Regresa el ingreso total del tipo solicitado.
 }
 
-void Hotel::agrega_individual(int numero, int noches, double precio) {
-  // Agrega una habitación individual sin desayuno.
+double Hotel::calc_ingreso_total(string tipo) {
+  // Calcula el ingreso total de un tipo específico.
 
-  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
-    // Primero revisa que haya espacio en el arreglo.
-    // También revisa que los datos principales sean válidos.
+  double total = 0;
 
-    habitaciones[num_habitaciones] = new Individual(numero, noches, precio);
-    // Crea un objeto Individual en memoria dinámica usando new.
-    // Aunque el objeto real es Individual, se guarda como Habitacion*.
-
-
-    num_habitaciones++;
+  for (int i = 0; i < num_habitaciones; i++) {
+    if (!habitaciones[i]->get_disponible() && habitaciones[i]->get_tipo() == tipo) {
+      total = total + habitaciones[i]->costo_total();
+    }
   }
-}
 
-void Hotel::agrega_individual(int numero, int noches, double precio, bool desayuno) {
-  // Agrega una habitación individual con desayuno.
-  // Este método es sobrecarga de agrega_individual.
-
-  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
-    // Valida espacio disponible y datos correctos.
-
-    habitaciones[num_habitaciones] = new Individual(numero, noches, precio, desayuno);
-    // Crea un objeto Individual usando el constructor que recibe desayuno.
-
-    num_habitaciones++;
-  }
-}
-
-void Hotel::agrega_doble(int numero, int noches, double precio) {
-  // Agrega una habitación doble sin cargo extra.
-
-  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio)) {
-    // Valida que haya espacio y que los datos sean correctos.
-
-    habitaciones[num_habitaciones] = new Doble(numero, noches, precio);
-    // Crea un objeto Doble en memoria dinámica.
-    // Se guarda como Habitacion*, aplicando polimorfismo.
-
-    num_habitaciones++;
-  }
-}
-
-void Hotel::agrega_doble(int numero, int noches, double precio, double cargo) {
-  // Agrega una habitación doble con cargo extra.
-  // Es sobrecarga porque tiene el mismo nombre que el método anterior,
-  // pero recibe un parámetro extra.
-
-  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio) && cargo >= 0) {
-    // Valida espacio, datos base y que el cargo extra no sea negativo.
-
-    habitaciones[num_habitaciones] = new Doble(numero, noches, precio, cargo);
-    // Crea un objeto Doble con cargo extra.
-
-    num_habitaciones++;
-  }
-}
-
-void Hotel::agrega_suite(int numero, int noches, double precio, double servicio) {
-  // Agrega una suite sin descuento.
-
-  if (num_habitaciones < MAX_HABITACIONES && datos_validos(numero, noches, precio) && servicio >= 0) {
-    // Valida espacio, datos base y que el servicio extra no sea negativo.
-
-    habitaciones[num_habitaciones] = new Suite(numero, noches, precio, servicio);
-    // Crea un objeto Suite con servicio extra.
-
-    num_habitaciones++;
-    // Aumenta el contador.
-  }
-}
-
-void Hotel::agrega_suite(int numero, int noches, double precio, double servicio, double descuento) {
-  // Agrega una suite con servicio extra y descuento.
-  // Es sobrecarga de agrega_suite.
-
-  double subtotal = (precio * noches) + servicio;
-  // Calcula el subtotal antes del descuento.
-  // Esto sirve para validar que el descuento no sea mayor al costo real.
-
-  if (num_habitaciones < MAX_HABITACIONES &&
-      datos_validos(numero, noches, precio) &&
-      servicio >= 0 &&
-      descuento >= 0 &&
-      descuento <= subtotal) {
-    // Valida que haya espacio.
-    // Valida datos base.
-    // Valida que servicio y descuento no sean negativos.
-    // Valida que el descuento no sea mayor que el subtotal.
-
-    habitaciones[num_habitaciones] = new Suite(numero, noches, precio, servicio, descuento);
-    // Crea un objeto Suite con servicio extra y descuento.
-
-    num_habitaciones++;
-    // Aumenta el contador.
-  }
+  return total;
 }
