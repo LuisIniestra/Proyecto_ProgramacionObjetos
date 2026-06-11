@@ -7,18 +7,17 @@ using namespace std;
 
 class Habitacion {
   // Clase padre del proyecto.
-  // También es la clase abstracta del sistema.
+  // Es abstracta porque tiene métodos virtuales puros.
 
   protected:
     int numero;
     // Número de la habitación.
-    // Es protected para que las clases hijas puedan usarlo directamente.
 
     int noches;
-    // Cantidad de noches que se va a rentar la habitación.
+    // Cantidad de noches que se va a reservar.
 
     double precio_noche;
-    // Precio base por cada noche.
+    // Precio que el usuario asigna por noche.
 
     string tipo;
     // Tipo de habitación: individual, doble o suite.
@@ -26,20 +25,17 @@ class Habitacion {
   public:
     Habitacion();
     // Constructor por default.
-    // Lo dejamos como ejemplo de sobrecarga de constructores.
 
     Habitacion(int num, int noch, double precio, string tip);
     // Constructor con parámetros.
-    // Sirve para inicializar una habitación con datos reales.
-    // Aquí hay sobrecarga porque existen dos constructores Habitacion.
+    // Aquí hay sobrecarga porque existe más de un constructor Habitacion.
 
     virtual ~Habitacion();
     // Destructor virtual.
-    // Se usa porque Hotel manejará habitaciones mediante apuntadores Habitacion*.
-    // Esto ayuda a destruir correctamente los objetos hijos.
+    // Es importante porque Hotel borra objetos usando apuntadores Habitacion*.
 
     int get_numero() const;
-    // Regresa el número de la habitación.
+    // Regresa el número de habitación.
 
     int get_noches() const;
     // Regresa la cantidad de noches.
@@ -51,14 +47,12 @@ class Habitacion {
     // Regresa el tipo de habitación.
 
     virtual double costo_total() const = 0;
-    // MÉTODO VIRTUAL PURO.
-    // Aquí se demuestra que Habitacion es una clase abstracta.
-    // El = 0 significa que Habitacion no puede crear objetos directamente.
-    // Obliga a las clases hijas a implementar su propio costo_total().
+    // Método virtual puro.
+    // Aquí se demuestra que Habitacion es clase abstracta.
+    // Obliga a las clases hijas a implementar su propio cálculo.
 
     virtual string to_string() const = 0;
-    // MÉTODO VIRTUAL PURO.
-    // También demuestra que Habitacion es abstracta.
+    // Método virtual puro.
     // Obliga a las clases hijas a implementar su propia forma de mostrar datos.
 };
 
